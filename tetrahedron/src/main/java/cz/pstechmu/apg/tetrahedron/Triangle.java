@@ -52,6 +52,6 @@ public class Triangle {
         return
             "\t{A: [" + vertexA.toString(format) + "], \n" +
             "\tB: [" + vertexB.toString(format) + "], \n" +
-            "\tC: [" + vertexB.toString(format) + "]}, \n";
+            "\tC: [" + vertexC.toString(format) + "]}, \n";
     }
 }
