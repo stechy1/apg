@@ -31,6 +31,12 @@ public class Tetrahedron {
         Vector3d C = new Vector3d (rx,  ry,  0.0);
         Vector3d D = new Vector3d (sx,  sy,  sz );
 
+        Vector3d delta = A.add(B).add(C).add(D).div(4);
+        A = A.sub(delta);
+        B = B.sub(delta);
+        C = C.sub(delta);
+        D = D.sub(delta);
+
         triangleABC = new Triangle(A, B, C);
         triangleABD = new Triangle(A, B, D);
         triangleACD = new Triangle(A, C, D);
@@ -55,5 +61,17 @@ public class Tetrahedron {
 
     public List<Triangle> getTriangles() {
         return Arrays.asList(triangleABC, triangleABD, triangleACD, triangleBCD);
+    }
+
+    public double getOuterSphereRadius() {
+        return 0;
+    }
+
+    @Override
+    public String toString() {
+        return "ABC: \n" + triangleABC.toString() + "\n"
+            + "ABD: \n" + triangleABD.toString() + "\n"
+            + "ACD: \n" + triangleACD.toString() + "\n"
+            + "BCD: \n" + triangleBCD.toString() + "\n";
     }
 }
