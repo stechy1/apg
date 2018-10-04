@@ -1,2 +1,3 @@
 rootProject.name = 'apg'
+include 'tetrahedron'
 
