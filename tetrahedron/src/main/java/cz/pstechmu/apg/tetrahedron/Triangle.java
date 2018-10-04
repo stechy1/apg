@@ -48,7 +48,7 @@ public class Triangle {
 
     @Override
     public String toString() {
-        NumberFormat format = NumberFormat.getIntegerInstance();
+        NumberFormat format = NumberFormat.getNumberInstance();
         return
             "\t{A: [" + vertexA.toString(format) + "], \n" +
             "\tB: [" + vertexB.toString(format) + "], \n" +
