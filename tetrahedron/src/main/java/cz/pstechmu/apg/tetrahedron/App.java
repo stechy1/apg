@@ -13,7 +13,7 @@ import java.util.stream.DoubleStream;
 public class App {
 
     private static final int EDGE_SIZE = 1;
-    private static final int DEPTH = 16;
+    private static final int DEPTH = 4;
 
     public static void main(String[] args) {
         final Tetrahedron tetrahedron = new Tetrahedron(EDGE_SIZE);

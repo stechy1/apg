@@ -1,56 +1,88 @@
 package cz.pstechmu.apg.tetrahedron;
 
-import cz.pstechmu.apg.engine.Loader;
-import cz.pstechmu.apg.engine.RawModel;
-import cz.pstechmu.apg.engine.Renderer;
-import cz.pstechmu.apg.engine.WindowManager;
-import cz.pstechmu.apg.engine.WindowManager.OnFrameListener;
+import cz.pstechmu.apg.base.Application;
+import cz.pstechmu.apg.base.ApplicationConfiguration;
+import cz.pstechmu.apg.base.ApplicationListener;
+import cz.pstechmu.apg.engine.VAO;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 
-public class VertexVisualizer implements OnFrameListener {
+@SuppressWarnings("all")
+public class VertexVisualizer implements ApplicationListener {
 
-    private final WindowManager windowManager = new WindowManager(this);
-    private final Loader loader = new Loader();
-    private final Renderer renderer = new Renderer();
+    private VAO vao;
 
-    private RawModel rawModel;
+    private VertexVisualizer() {
+        ApplicationConfiguration config = new ApplicationConfiguration();
+        config.width = 1280;
+        config.height = 720;
+        config.title = "Vertex visualizer";
+        config.vSyncEnabled = true;
+        config.show = true;
 
-    public static void main(String[] args) throws Exception {
-        new VertexVisualizer().work(new File(args[0]));
+        Application app = new Application(this, config);
+        try {
+            app.run();
+        } catch(Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
 
-    public VertexVisualizer() {
-        windowManager.init();
-    }
-
-    private double[] parseVertices(File data) {
-        try (final BufferedReader reader = new BufferedReader(new FileReader(data))) {
+    private float[] parseVertices(File file) {
+        try (final BufferedReader reader = new BufferedReader(new FileReader(file))) {
             final String line = reader.readLine();
             final String[] rawData = line.split(" ");
-            return Arrays.stream(rawData).mapToDouble(Double::parseDouble).toArray();
+            final float[] data = new float[rawData.length];
+            for (int i = 0; i < rawData.length; i++) {
+                data[i] = Float.parseFloat(rawData[i]);
+            }
+            return data;
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("Problem");
         }
     }
 
-    private void work(File dataFile) {
-        double[] vertices = parseVertices(dataFile);
-
-        rawModel = loader.loadToVAO(vertices);
-
-        windowManager.run();
-
-        loader.cleanUp();
+    public static void main(String[] args) {
+        new VertexVisualizer();
     }
 
     @Override
-    public void onFrame() {
-        renderer.prepare();
-        renderer.render(rawModel);
+    public void create() {
+        final float[] vertices = parseVertices(new File("./data.txt"));
+        vao = new VAO(vertices, 3);
+    }
+
+    @Override
+    public void update(float delta) {
+        
+    }
+
+    @Override
+    public void render() {
+        vao.render();
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+
+    @Override
+    public void mouseMoved(double xpos, double ypos, double dx, double dy) {
+
+    }
+
+    @Override
+    public void keyPressed(int keycode) {
+
+    }
+
+    @Override
+    public void keyReleased(int keycode) {
+
     }
 }
