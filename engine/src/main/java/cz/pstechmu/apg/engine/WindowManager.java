@@ -75,16 +75,16 @@ public class WindowManager {
 
         // Make the window visible
         GLFW.glfwShowWindow(window);
-    }
 
-    public void run() {
         // This line is critical for LWJGL's interoperation with GLFW's
         // OpenGL context, or any context that is managed externally.
         // LWJGL detects the context that is current in the current thread,
         // creates the GLCapabilities instance and makes the OpenGL
         // bindings available for use.
         GL.createCapabilities();
+    }
 
+    public void run() {
         // Set the clear color
         GL11.glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 
