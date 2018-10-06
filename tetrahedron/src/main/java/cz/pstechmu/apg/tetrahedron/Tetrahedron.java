@@ -31,11 +31,11 @@ public class Tetrahedron {
         Vector3d C = new Vector3d (rx,  ry,  0.0);
         Vector3d D = new Vector3d (sx,  sy,  sz );
 
-        Vector3d delta = A.add(B).add(C).add(D).div(4);
-        A = A.sub(delta);
-        B = B.sub(delta);
-        C = C.sub(delta);
-        D = D.sub(delta);
+        Vector3d delta = new Vector3d(A).add(B).add(C).add(D).div(4);
+        A.sub(delta);
+        B.sub(delta);
+        C.sub(delta);
+        D.sub(delta);
 
         triangleABC = new Triangle(A, B, C);
         triangleABD = new Triangle(A, B, D);
@@ -69,9 +69,9 @@ public class Tetrahedron {
 
     @Override
     public String toString() {
-        return "ABC: \n" + triangleABC.toString() + "\n"
-            + "ABD: \n" + triangleABD.toString() + "\n"
-            + "ACD: \n" + triangleACD.toString() + "\n"
-            + "BCD: \n" + triangleBCD.toString() + "\n";
+        return "ABC: " + triangleABC.toString() + "\n"
+            + "ABD: " + triangleABD.toString() + "\n"
+            + "ACD: " + triangleACD.toString() + "\n"
+            + "BCD: " + triangleBCD.toString() + "\n";
     }
 }
