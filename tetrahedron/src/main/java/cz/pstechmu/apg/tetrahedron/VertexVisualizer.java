@@ -50,7 +50,7 @@ public class VertexVisualizer implements OnFrameListener {
 
     @Override
     public void onFrame() {
-//        renderer.prepare();
-//        renderer.render(rawModel);
+        renderer.prepare();
+        renderer.render(rawModel);
     }
 }
