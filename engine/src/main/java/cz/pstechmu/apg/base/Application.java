@@ -182,7 +182,7 @@ public class Application implements Runnable{
 
             // Clear the screen
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-            GL11.glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+            GL11.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
             // Render the user application
             applicationListener.render();

@@ -2,6 +2,7 @@ package cz.pstechmu.apg.util;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 
 public class BufferUtil {
@@ -42,6 +43,24 @@ public class BufferUtil {
 
         // Prepares the buffer for get() operations
         buffer.flip();
+
+        return buffer;
+    }
+
+    /**
+     * Stores the specified 4x4 matrix into a float buffer
+     * @param data The 4x4 matrix
+     * @return The generated FloatBuffer
+     */
+    public static FloatBuffer toBuffer(Matrix4f data) {
+        // Create an empty FloatBuffer with the correct size (4x4)
+        FloatBuffer buffer = BufferUtils.createFloatBuffer(4 * 4);
+
+        // Store the matrix into the buffer
+        data.get(buffer);
+
+        // Prepare the buffer for get() operations
+        buffer.rewind();
 
         return buffer;
     }
