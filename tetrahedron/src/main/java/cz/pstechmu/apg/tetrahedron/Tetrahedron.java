@@ -11,13 +11,13 @@ public class Tetrahedron {
     private final Triangle triangleACD;
     private final Triangle triangleBCD;
 
-    public Tetrahedron(int edgeSize) {
-        int AsB_m, AsC_m, AsD_m, BsC_m, BsD_m, CsD_m;
+    public Tetrahedron(double edgeSize) {
+        double AsB_m, AsC_m, AsD_m, BsC_m, BsD_m, CsD_m;
 
         AsB_m = AsC_m = AsD_m = BsC_m = BsD_m = CsD_m = edgeSize;
-        int AsB_m2 = AsB_m * AsB_m; int AsC_m2 = AsC_m * AsC_m;
-        int AsD_m2 = AsD_m * AsD_m; int BsC_m2 = BsC_m * BsC_m;
-        int BsD_m2 = BsD_m * BsD_m; int CsD_m2 = CsD_m * CsD_m;
+        double AsB_m2 = AsB_m * AsB_m; double AsC_m2 = AsC_m * AsC_m;
+        double AsD_m2 = AsD_m * AsD_m; double BsC_m2 = BsC_m * BsC_m;
+        double BsD_m2 = BsD_m * BsD_m; double CsD_m2 = CsD_m * CsD_m;
 
         double qx = AsB_m;
         double rx = (AsB_m2 + AsC_m2 - BsC_m2) / (2.0 * AsB_m);
@@ -37,10 +37,10 @@ public class Tetrahedron {
         C.sub(delta);
         D.sub(delta);
 
-        triangleABC = new Triangle(A, B, C);
-        triangleABD = new Triangle(A, B, D);
-        triangleACD = new Triangle(A, C, D);
-        triangleBCD = new Triangle(B, C, D);
+        triangleABC = new Triangle(A, B, C, 1);
+        triangleABD = new Triangle(A, B, D, 1);
+        triangleACD = new Triangle(A, C, D, 1);
+        triangleBCD = new Triangle(B, C, D, 1);
     }
 
     public Triangle getTriangleABC() {
