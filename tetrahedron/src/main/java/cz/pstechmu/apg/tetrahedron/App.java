@@ -11,8 +11,8 @@ import java.util.stream.DoubleStream;
 public class App {
 
     private static final double EDGE_SIZE = Math.sqrt(8) / Math.sqrt(3);
-    private static final int LAYERS = 5;
-    private static final double MAX_ITERATIONS = Math.pow(4, LAYERS);
+    private static final int LAYERS = 2;
+    private static final double MAX_ITERATIONS = Math.round(Math.pow(4, LAYERS));
 
     public static void main(String[] args) {
         final Tetrahedron tetrahedron = new Tetrahedron(EDGE_SIZE);
@@ -20,14 +20,16 @@ public class App {
         System.out.println("-------------------------");
 
         Queue<Triangle> triangleStack = new ArrayDeque<>(tetrahedron.getTriangles());
-//        Set<Triangle> triangles = new LinkedHashSet<>();
 
-        int counter = 0;
-        while(counter < MAX_ITERATIONS) {
-            Triangle triangle = triangleStack.poll();
-            assert triangle != null;
-            triangleStack.addAll(triangle.getInnerTriangles(1));
-            counter++;
+        if (LAYERS > 0) {
+
+            int counter = 0;
+            while (counter < MAX_ITERATIONS) {
+                Triangle triangle = triangleStack.poll();
+                assert triangle != null;
+                triangleStack.addAll(triangle.getInnerTriangles(1));
+                counter++;
+            }
         }
 
         System.out.println("Počet trojuhelniku: " + triangleStack.size());

@@ -35,13 +35,21 @@ public class Triangle {
     }
 
     public List<Triangle> getInnerTriangles(double radius) {
-        final Vector3d deltaAB = new Vector3d(vertexA).add(vertexB).div(2);
-        final Vector3d deltaAC = new Vector3d(vertexA).add(vertexC).div(2);
-        final Vector3d deltaBC = new Vector3d(vertexB).add(vertexC).div(2);
+//        final Vector3d deltaAB = new Vector3d(vertexA).add(vertexB).div(2);
+//        final Vector3d deltaAC = new Vector3d(vertexA).add(vertexC).div(2);
+//        final Vector3d deltaBC = new Vector3d(vertexB).add(vertexC).div(2);
 
-        final Vector3d newAB = new Vector3d(deltaAB).mul(radius).div(deltaAB.length());
-        final Vector3d newAC = new Vector3d(deltaAC).mul(radius).div(deltaAC.length());
-        final Vector3d newBC = new Vector3d(deltaBC).mul(radius).div(deltaBC.length());
+        double angleAB = vertexA.angle(vertexB);
+        double angleAC = vertexA.angle(vertexC);
+        double angleBC = vertexB.angle(vertexC);
+
+        final Vector3d newAB = new Vector3d(vertexA).add(vertexB).mul(1/Math.sin(angleAB)*Math.sin(angleAB/2));
+        final Vector3d newAC = new Vector3d(vertexA).add(vertexC).mul(1/Math.sin(angleAC)*Math.sin(angleAC/2));
+        final Vector3d newBC = new Vector3d(vertexB).add(vertexC).mul(1/Math.sin(angleBC)*Math.sin(angleBC/2));
+
+//        final Vector3d newAB = new Vector3d(deltaAB).mul(radius).div(deltaAB.length());
+//        final Vector3d newAC = new Vector3d(deltaAC).mul(radius).div(deltaAC.length());
+//        final Vector3d newBC = new Vector3d(deltaBC).mul(radius).div(deltaBC.length());
 
         final Triangle inner = new Triangle(newAB, newAC, newBC);
         final Triangle A_deltaAB_deltaAC = new Triangle(vertexA, newAB, newAC);
