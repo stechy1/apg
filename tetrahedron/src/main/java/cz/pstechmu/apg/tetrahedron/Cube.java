@@ -80,7 +80,7 @@ public class Cube {
 
 
         long windowID = createWindow();
-        float rotate = 0.005f;
+        float rotate = 0.05f;
         glScalef(0.5f, 0.5f, 0.5f);
 
         /* Zapnout jemný stínování*/

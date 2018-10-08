@@ -5,15 +5,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.Queue;
-import java.util.Set;
 import java.util.stream.DoubleStream;
 
 public class App {
 
     private static final double EDGE_SIZE = Math.sqrt(8) / Math.sqrt(3);
-    private static final int DEPTH = 4;
+    private static final int LAYERS = 5;
+    private static final double MAX_ITERATIONS = Math.pow(4, LAYERS);
 
     public static void main(String[] args) {
         final Tetrahedron tetrahedron = new Tetrahedron(EDGE_SIZE);
@@ -21,21 +20,21 @@ public class App {
         System.out.println("-------------------------");
 
         Queue<Triangle> triangleStack = new ArrayDeque<>(tetrahedron.getTriangles());
-        Set<Triangle> triangles = new LinkedHashSet<>();
+//        Set<Triangle> triangles = new LinkedHashSet<>();
 
         int counter = 0;
-        while(!triangleStack.isEmpty() && counter < DEPTH) {
+        while(counter < MAX_ITERATIONS) {
             Triangle triangle = triangleStack.poll();
-            triangles.add(triangle);
+            assert triangle != null;
             triangleStack.addAll(triangle.getInnerTriangles(1));
             counter++;
         }
 
         System.out.println("Počet trojuhelniku: " + triangleStack.size());
 
-        System.out.println(triangles.toString());
+        System.out.println(triangleStack.toString());
 
-        final double[] vertices = triangles.stream().flatMapToDouble(triangle -> DoubleStream.of(triangle.toVertices())).toArray();
+        final double[] vertices = triangleStack.stream().flatMapToDouble(triangle -> DoubleStream.of(triangle.toVertices())).toArray();
 
         System.out.println(Arrays.toString(vertices));
 

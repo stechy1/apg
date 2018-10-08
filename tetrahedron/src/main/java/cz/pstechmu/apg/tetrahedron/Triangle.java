@@ -8,7 +8,7 @@ import org.joml.Vector3d;
 
 public class Triangle {
 
-    private static int counter;
+    private static int counter = 0;
 
     private final int id;
     private final Vector3d vertexA;
