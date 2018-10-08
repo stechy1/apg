@@ -16,7 +16,7 @@ import static org.lwjgl.opengl.GL11.GL_SMOOTH;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.opengl.GL11.glClearDepth;
-import static org.lwjgl.opengl.GL11.glColor3f;
+import static org.lwjgl.opengl.GL11.glColor3fv;
 import static org.lwjgl.opengl.GL11.glDepthFunc;
 import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glHint;
@@ -26,32 +26,29 @@ import static org.lwjgl.opengl.GL11.glShadeModel;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Random;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 
 public class Cube {
     private static float[][] vertices;
+    private static float[][] colors;
+
+    private static final Random random = new Random();
 
     public static void drawCube() {
-        // máme dvanáct faceů
-        float g = 1.0f;
+
         for (int i = 0; i < vertices.length; i+=3) {
-            GL11.glBegin(GL11.GL_LINES);
-            glColor3f(0.9f - i * 0.25f, 0.3f + i * 0.15f, 0.0f);
+
+            GL11.glBegin(GL11.GL_TRIANGLES);
+//            glColor3f(0.9f - i * 0.25f, 0.3f + i * 0.15f, blue);
+            glColor3fv(colors[i]);
             GL11.glVertex3fv(vertices[i]);
             GL11.glVertex3fv(vertices[i+1]);
             GL11.glVertex3fv(vertices[i+2]);
             GL11.glEnd();
         }
-//        for (int i = 0; i < faces.length; i++) {
-//            GL11.glBegin(GL11.GL_POLYGON);
-//            glColor3f(0.9f - i * 0.25f, 0.3f + i * 0.15f, 0.0f);
-//            GL11.glVertex3fv(vertices[faces[i][0]]);
-//            GL11.glVertex3fv(vertices[faces[i][1]]);
-//            GL11.glVertex3fv(vertices[faces[i][2]]);
-//            GL11.glEnd();
-//        }
     }
 
     static void loadVertices() {
@@ -59,12 +56,16 @@ public class Cube {
             final String line = reader.readLine();
             final String[] rawData = line.split(" ");
             vertices = new float[rawData.length / 3][3];
+            colors = new float[vertices.length][3];
             int dataCounter = 0;
             int vertexCounter = 0;
             for (int i = 0; i < rawData.length / 3; i++) {
                 vertices[vertexCounter][0] = Float.parseFloat(rawData[dataCounter++]);
                 vertices[vertexCounter][1] = Float.parseFloat(rawData[dataCounter++]);
                 vertices[vertexCounter][2] = Float.parseFloat(rawData[dataCounter++]);
+                colors[vertexCounter][0] = random.nextFloat();
+                colors[vertexCounter][1] = random.nextFloat();
+                colors[vertexCounter][2] = random.nextFloat();
                 vertexCounter++;
             }
         } catch (IOException e) {

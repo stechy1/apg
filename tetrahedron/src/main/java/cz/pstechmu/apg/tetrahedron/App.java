@@ -13,7 +13,7 @@ import java.util.stream.DoubleStream;
 public class App {
 
     private static final double EDGE_SIZE = Math.sqrt(8) / Math.sqrt(3);
-    private static final int DEPTH = 64;
+    private static final int DEPTH = 4;
 
     public static void main(String[] args) {
         final Tetrahedron tetrahedron = new Tetrahedron(EDGE_SIZE);
@@ -27,7 +27,7 @@ public class App {
         while(!triangleStack.isEmpty() && counter < DEPTH) {
             Triangle triangle = triangleStack.poll();
             triangles.add(triangle);
-            triangleStack.addAll(triangle.getInnerTriangles());
+            triangleStack.addAll(triangle.getInnerTriangles(1));
             counter++;
         }
 

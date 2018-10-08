@@ -37,10 +37,10 @@ public class Tetrahedron {
         C.sub(delta);
         D.sub(delta);
 
-        triangleABC = new Triangle(A, B, C, 1);
-        triangleABD = new Triangle(A, B, D, 1);
-        triangleACD = new Triangle(A, C, D, 1);
-        triangleBCD = new Triangle(B, C, D, 1);
+        triangleABC = new Triangle(A, B, C);
+        triangleABD = new Triangle(A, B, D);
+        triangleACD = new Triangle(A, C, D);
+        triangleBCD = new Triangle(B, C, D);
     }
 
     public Triangle getTriangleABC() {
